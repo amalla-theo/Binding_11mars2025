@@ -16,6 +16,7 @@ import javafx.util.StringConverter;
 import javafx.util.converter.DoubleStringConverter;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
@@ -37,7 +38,21 @@ public class HelloController implements Initializable {
     public Slider Slider_Hauteur;
     public Rectangle rectangle;
 
-    StringConverter sc = new DoubleStringConverter();
+    StringConverter sc = new DoubleStringConverter() {
+        @Override
+        public String toString(Double value) {
+            DecimalFormat df = new DecimalFormat("#.## m");
+            return df.format(value);
+        }
+
+        @Override
+        public Double fromString(String value) {
+            System.out.println(value);
+            value = value.replace(",", ".");
+            value = value.replace(" m", "");
+            return Double.parseDouble(value);
+        }
+    };
 
 
     @Override
@@ -49,8 +64,8 @@ public class HelloController implements Initializable {
         s.bind((l.multiply(h)));
 
         //code-->ihm
-        perimetre.textProperty().bind(p.asString());;
-        surface.textProperty().bind(s.asString());
+        perimetre.textProperty().bind(p.asString("%.2f m"));;
+        surface.textProperty().bind(s.asString("%.2f m²"));
 
         //ihm-->code
         Bindings.bindBidirectional(hauteur.textProperty(), h, sc);
@@ -88,3 +103,4 @@ public class HelloController implements Initializable {
 
     }
 }
+

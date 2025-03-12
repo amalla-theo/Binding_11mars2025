@@ -14,8 +14,8 @@
         <Label layoutX="293.0" layoutY="169.0" text="Surface" />
         <TextField fx:id="perimetre" alignment="CENTER" editable="false" layoutX="263.0" layoutY="133.0" prefHeight="26.0" prefWidth="100.0" />
         <TextField fx:id="surface" alignment="CENTER" editable="false" layoutX="263.0" layoutY="187.0" prefHeight="26.0" prefWidth="100.0" />
-      <Slider fx:id="Slider_Largeur" layoutX="75.0" layoutY="87.0" prefHeight="14.0" prefWidth="135.0" />
-      <Slider fx:id="Slider_Hauteur" layoutX="54.0" layoutY="146.0" orientation="VERTICAL" prefHeight="135.0" prefWidth="14.0" />
+      <Slider fx:id="Slider_Largeur" blockIncrement="1.0" layoutX="75.0" layoutY="87.0" prefHeight="14.0" prefWidth="135.0" />
+      <Slider fx:id="Slider_Hauteur" blockIncrement="1.0" layoutX="54.0" layoutY="146.0" orientation="VERTICAL" prefHeight="135.0" prefWidth="14.0" />
       <Label layoutX="122.0" layoutY="70.0" text="Largeur" />
       <Label layoutX="24.0" layoutY="205.0" rotate="-90.0" text="Hauteur" />
       <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="200.0" layoutY="281.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
