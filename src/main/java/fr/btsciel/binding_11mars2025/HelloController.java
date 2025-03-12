@@ -27,10 +27,12 @@ public class HelloController implements Initializable {
     public TextField perimetre;
     public TextField surface;
 
-    public DoubleProperty h = new SimpleDoubleProperty();
-    public DoubleProperty l = new SimpleDoubleProperty();
-    public DoubleProperty p = new SimpleDoubleProperty();
-    public DoubleProperty s = new SimpleDoubleProperty();
+    RectangleProperty monRectangle = new RectangleProperty();
+
+//    public DoubleProperty h = new SimpleDoubleProperty();
+//    public DoubleProperty l = new SimpleDoubleProperty();
+//    public DoubleProperty p = new SimpleDoubleProperty();
+//    public DoubleProperty s = new SimpleDoubleProperty();
 
     double SEUIL_S=5000.0;
 
@@ -58,28 +60,28 @@ public class HelloController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //p=(h+l)*2
-        p.bind(l.add(h).multiply(2));
+        monRectangle.perimetreProperty().bind(monRectangle.largeurProperty().add(monRectangle.hauteurProperty()).multiply(2));
 
         //s=h*l
-        s.bind((l.multiply(h)));
+        monRectangle.surfaceProperty().bind(monRectangle.largeurProperty().multiply(monRectangle.hauteurProperty()));
 
         //code-->ihm
-        perimetre.textProperty().bind(p.asString("%.2f m"));;
-        surface.textProperty().bind(s.asString("%.2f m²"));
+        perimetre.textProperty().bind(monRectangle.perimetreProperty().asString("%.2f m"));;
+        surface.textProperty().bind(monRectangle.surfaceProperty().asString("%.2f m²"));
 
         //ihm-->code
-        Bindings.bindBidirectional(hauteur.textProperty(), h, sc);
-        Bindings.bindBidirectional(largeur.textProperty(),l,sc);
+        Bindings.bindBidirectional(hauteur.textProperty(), monRectangle.hauteurProperty(), sc);
+        Bindings.bindBidirectional(largeur.textProperty(),monRectangle.largeurProperty(),sc);
 
         //bind text et slider
         Bindings.bindBidirectional(hauteur.textProperty(),Slider_Hauteur.valueProperty(),sc);
         Bindings.bindBidirectional(largeur.textProperty(),Slider_Largeur.valueProperty(),sc);
 
         //slider
-        Slider_Hauteur.visibleProperty().bind(Bindings.when(h.greaterThan(100))
+        Slider_Hauteur.visibleProperty().bind(Bindings.when(monRectangle.hauteurProperty().greaterThan(100))
                 .then(false)
-        .otherwise(true));
-        Slider_Largeur.visibleProperty().bind(Bindings.when(l.greaterThan(100))
+                .otherwise(true));
+        Slider_Largeur.visibleProperty().bind(Bindings.when(monRectangle.largeurProperty().greaterThan(100))
                 .then(false)
                 .otherwise(true));
 
@@ -88,16 +90,16 @@ public class HelloController implements Initializable {
         Bindings.bindBidirectional(Slider_Hauteur.valueProperty(),rectangle.heightProperty());
         Bindings.bindBidirectional(Slider_Largeur.valueProperty(),rectangle.widthProperty());
 
-        rectangle.visibleProperty().bind(Bindings.when(l.greaterThan(100).or(h.greaterThan(100)))
+        rectangle.visibleProperty().bind(Bindings.when(monRectangle.largeurProperty().greaterThan(100).or(monRectangle.hauteurProperty().greaterThan(100)))
                 .then(false)
                 .otherwise(true));
 
         //Changement de couleur
-        surface.backgroundProperty().bind(Bindings.when(s.greaterThan(SEUIL_S))
+        surface.backgroundProperty().bind(Bindings.when(monRectangle.surfaceProperty().greaterThan(SEUIL_S))
                 .then(new Background(new BackgroundFill(Color.RED,null, null )))
                 .otherwise(new Background(new BackgroundFill(Color.AQUA, null, null))));
 
-        rectangle.fillProperty().bind(Bindings.when(s.greaterThan(SEUIL_S))
+        rectangle.fillProperty().bind(Bindings.when(monRectangle.surfaceProperty().greaterThan(SEUIL_S))
                 .then(Color.RED)
                 .otherwise(Color.AQUA));
 

@@ -25,7 +25,7 @@ public class RectangleProperty {
     }
 
     public DoubleProperty surfaceProperty() {
-        surface.bind(perimetre.multiply(hauteur));
+        surface.bind(largeur.multiply(hauteur));
         return surface;
     }
 
