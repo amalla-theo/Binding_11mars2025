@@ -6,7 +6,12 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.util.StringConverter;
 import javafx.util.converter.DoubleStringConverter;
 
@@ -26,6 +31,12 @@ public class HelloController implements Initializable {
     public DoubleProperty p = new SimpleDoubleProperty();
     public DoubleProperty s = new SimpleDoubleProperty();
 
+    double SEUIL_S=5000.0;
+
+    public Slider Slider_Largeur;
+    public Slider Slider_Hauteur;
+    public Rectangle rectangle;
+
     StringConverter sc = new DoubleStringConverter();
 
 
@@ -33,13 +44,47 @@ public class HelloController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         //p=(h+l)*2
         p.bind(l.add(h).multiply(2));
+
         //s=h*l
         s.bind((l.multiply(h)));
+
         //code-->ihm
         perimetre.textProperty().bind(p.asString());;
         surface.textProperty().bind(s.asString());
+
         //ihm-->code
         Bindings.bindBidirectional(hauteur.textProperty(), h, sc);
         Bindings.bindBidirectional(largeur.textProperty(),l,sc);
+
+        //bind text et slider
+        Bindings.bindBidirectional(hauteur.textProperty(),Slider_Hauteur.valueProperty(),sc);
+        Bindings.bindBidirectional(largeur.textProperty(),Slider_Largeur.valueProperty(),sc);
+
+        //slider
+        Slider_Hauteur.visibleProperty().bind(Bindings.when(h.greaterThan(100))
+                .then(false)
+        .otherwise(true));
+        Slider_Largeur.visibleProperty().bind(Bindings.when(l.greaterThan(100))
+                .then(false)
+                .otherwise(true));
+
+
+        //rectangle
+        Bindings.bindBidirectional(Slider_Hauteur.valueProperty(),rectangle.heightProperty());
+        Bindings.bindBidirectional(Slider_Largeur.valueProperty(),rectangle.widthProperty());
+
+        rectangle.visibleProperty().bind(Bindings.when(l.greaterThan(100).or(h.greaterThan(100)))
+                .then(false)
+                .otherwise(true));
+
+        //Changement de couleur
+        surface.backgroundProperty().bind(Bindings.when(s.greaterThan(SEUIL_S))
+                .then(new Background(new BackgroundFill(Color.RED,null, null )))
+                .otherwise(new Background(new BackgroundFill(Color.AQUA, null, null))));
+
+        rectangle.fillProperty().bind(Bindings.when(s.greaterThan(SEUIL_S))
+                .then(Color.RED)
+                .otherwise(Color.AQUA));
+
     }
 }

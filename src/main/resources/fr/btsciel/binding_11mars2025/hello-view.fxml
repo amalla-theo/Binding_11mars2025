@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="450.0"
-             xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.btsciel.binding_11mars2025.HelloController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.btsciel.binding_11mars2025.HelloController">
     <children>
-        <TextField fx:id="hauteur" alignment="CENTER" layoutX="68.0" layoutY="117.0" prefHeight="32.0" prefWidth="100.0" promptText="hauteur" />
-        <TextField fx:id="largeur" alignment="CENTER" layoutX="68.0" layoutY="197.0" prefHeight="32.0" prefWidth="100.0" promptText="largeur" />
+        <TextField fx:id="hauteur" alignment="CENTER" layoutX="90.0" layoutY="197.0" prefHeight="32.0" prefWidth="100.0" promptText="hauteur" />
+        <TextField fx:id="largeur" alignment="CENTER" layoutX="90.0" layoutY="117.0" prefHeight="32.0" prefWidth="100.0" promptText="largeur" />
         <Label layoutX="287.0" layoutY="117.0" text="Perimètre" />
         <Label layoutX="293.0" layoutY="169.0" text="Surface" />
         <TextField fx:id="perimetre" alignment="CENTER" editable="false" layoutX="263.0" layoutY="133.0" prefHeight="26.0" prefWidth="100.0" />
         <TextField fx:id="surface" alignment="CENTER" editable="false" layoutX="263.0" layoutY="187.0" prefHeight="26.0" prefWidth="100.0" />
+      <Slider fx:id="Slider_Largeur" layoutX="75.0" layoutY="87.0" prefHeight="14.0" prefWidth="135.0" />
+      <Slider fx:id="Slider_Hauteur" layoutX="54.0" layoutY="146.0" orientation="VERTICAL" prefHeight="135.0" prefWidth="14.0" />
+      <Label layoutX="122.0" layoutY="70.0" text="Largeur" />
+      <Label layoutX="24.0" layoutY="205.0" rotate="-90.0" text="Hauteur" />
+      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="200.0" layoutY="281.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
     </children>
 </AnchorPane>
